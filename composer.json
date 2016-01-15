@@ -1,0 +1,33 @@
+{
+  "name": "bileto/omnipay-tatrabank",
+  "type": "library",
+  "description": "TatraBank gateway for Omnipay payment processing library",
+  "keywords": [
+    "gateway",
+    "merchant",
+    "omnipay",
+    "pay",
+    "payment",
+    "tatrabank",
+    "purchase"
+  ],
+  "homepage": "https://github.com/bileto/omnipay-tatrabank",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Petr Smrkovský",
+      "email": "petr.smrkovsky@bileto.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": { "Omnipay\\Tatrabank\\" : "src/" }
+  },
+  "require": {
+    "omnipay/common": "^2.3"
+  },
+  "require-dev": {
+    "omnipay/tests": "^2.0",
+    "symfony/var-dumper": "^2.7",
+    "mockery/mockery": "^0.9.4"
+  }
+}
