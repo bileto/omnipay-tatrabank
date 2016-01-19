@@ -4,14 +4,14 @@ use Omnipay\Tatrabank\GatewayFactory;
 
 class GatewayTest extends PHPUnit_Framework_TestCase
 {
-    private $secureKey = '3132333435363738393031323334353637383930313233343536373839303132';
+    private $merchantId = '9999';
+    private $merchantKey = '3132333435363738393031323334353637383930313233343536373839303132';
 
     public function testPurchase()
     {
-        $gateway = GatewayFactory::createInstance($this->secureKey);
+        $gateway = GatewayFactory::createInstance($this->merchantId, $this->merchantKey);
 
         $parameters = [
-            'merchantId' => '9999',
             'customerId' => '42',
             'transactionId' => '12345',
             'amount' => 6.0,
@@ -30,7 +30,7 @@ class GatewayTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('https://moja.tatrabanka.sk/cgi-bin/e-commerce/start/e-commerce.jsp', $response->getRedirectUrl());
         $this->assertEquals(
             [
-                'MID' => '9999',
+                'MID' => $this->merchantId,
                 'AMT' => '6.00',
                 'CURR' => '978',
                 'VS' => '12345',
@@ -51,7 +51,7 @@ class GatewayTest extends PHPUnit_Framework_TestCase
 
     public function testCompletePurchase()
     {
-        $gateway = GatewayFactory::createInstance($this->secureKey);
+        $gateway = GatewayFactory::createInstance($this->merchantId, $this->merchantKey);
 
         $parameters = [
             'data' => [

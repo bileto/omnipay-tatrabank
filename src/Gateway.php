@@ -18,6 +18,14 @@ class Gateway extends AbstractGateway
     private $signator;
 
     /**
+     * Get gateway display name
+     */
+    public function getName()
+    {
+        return 'TatraBank';
+    }
+
+    /**
      * @param DataSignator $signator
      */
     public function setSignator(DataSignator $signator)
@@ -25,12 +33,17 @@ class Gateway extends AbstractGateway
         $this->signator = $signator;
     }
 
-    /**
-     * Get gateway display name
-     */
-    public function getName()
+    public function getMerchantId()
     {
-        return 'TatraBank';
+        return $this->getParameter('merchantId');
+    }
+
+    /**
+     * @param string $id
+     */
+    public function setMerchantId($value)
+    {
+        return $this->setParameter('merchantId', $value);
     }
 
     /**

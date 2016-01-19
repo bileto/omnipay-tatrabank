@@ -10,17 +10,19 @@ use Omnipay\Omnipay;
 class GatewayFactory
 {
     /**
-     * @param string $secureKey
+     * @param string $id
+     * @param string $key
      * @return Gateway
      */
-    public static function createInstance($secureKey)
+    public static function createInstance($id, $key)
     {
         $preparer = new Preparer();
-        $signator = new Signator($secureKey);
+        $signator = new Signator($key);
         $dataSignator = new DataSignator($preparer, $signator);
 
         /** @var \Omnipay\Tatrabank\Gateway $gateway */
         $gateway = Omnipay::create('Tatrabank');
+        $gateway->setMerchantId($id);
         $gateway->setSignator($dataSignator);
         return $gateway;
     }
