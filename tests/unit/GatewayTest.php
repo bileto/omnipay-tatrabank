@@ -5,7 +5,7 @@ use Omnipay\Tatrabank\GatewayFactory;
 class GatewayTest extends PHPUnit_Framework_TestCase
 {
     private $merchantId = '9999';
-    private $merchantKey = '3132333435363738393031323334353637383930313233343536373839303132';
+    private $merchantKey = '31323334353637383930313233343536373839303132333435363738393031323132333435363738393031323334353637383930313233343536373839303132';
 
     public function testPurchase()
     {
@@ -42,8 +42,6 @@ class GatewayTest extends PHPUnit_Framework_TestCase
             'LANG' => 'cz',
         ];
         $data['HMAC'] = $gateway->getSignator()->sign($data, ['MID', 'AMT', 'CURR', 'VS', 'RURL', 'IPC', 'NAME', 'TIMESTAMP']);
-        //var_dump($response->getRedirectData());
-        //var_dump($data);
         $this->assertEquals(
             $data,
             $response->getRedirectData()
