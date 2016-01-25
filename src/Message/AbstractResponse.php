@@ -43,8 +43,8 @@ abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
 
     public function getSignature()
     {
-        if (isset($this->data['SIGN'])) {
-            return $this->data['SIGN'];
+        if (isset($this->data['HMAC'])) {
+            return $this->data['HMAC'];
         }
     }
 

@@ -19,30 +19,33 @@ class GatewayTest extends PHPUnit_Framework_TestCase
             'clientIp' => '1.2.3.4',
             'returnUrl' => 'http://example.com',
             'language' => 'CZ',
-            'description' => 'Test'
         ];
 
-        $response = $gateway->purchase($parameters)->send();
+        $request = $gateway->purchase($parameters);
+        $response = $request->send();
 
         $this->assertInstanceOf(Omnipay\Tatrabank\Message\AbstractRedirectResponse::class, $response);
         $this->assertTrue($response->isRedirect());
         $this->assertEquals('POST', $response->getRedirectMethod());
-        $this->assertEquals('https://moja.tatrabanka.sk/cgi-bin/e-commerce/start/e-commerce.jsp', $response->getRedirectUrl());
+        $this->assertEquals('https://moja.tatrabanka.sk/cgi-bin/e-commerce/start/cardpay', $response->getRedirectUrl());
+        $data = [
+            'MID' => $this->merchantId,
+            'AMT' => '6.00',
+            'CURR' => 978,
+            'VS' => '12345',
+            'RURL' => 'http://example.com',
+            'IPC' => '1.2.3.4',
+            'NAME' => '42',
+            'TPAY' => 'N',
+            'AREDIR' => 1,
+            'TIMESTAMP' => $request->getTimestamp(),
+            'LANG' => 'cz',
+        ];
+        $data['HMAC'] = $gateway->getSignator()->sign($data, ['MID', 'AMT', 'CURR', 'VS', 'RURL', 'IPC', 'NAME', 'TIMESTAMP']);
+        //var_dump($response->getRedirectData());
+        //var_dump($data);
         $this->assertEquals(
-            [
-                'MID' => $this->merchantId,
-                'AMT' => '6.00',
-                'CURR' => '978',
-                'VS' => '12345',
-                'RURL' => 'http://example.com',
-                'IPC' => '1.2.3.4',
-                'NAME' => '42',
-                'TPAY' => 'N',
-                'AREDIR' => '1',
-                'DESC' => 'Test',
-                'LANG' => 'cz',
-                'SIGN' => 'DB477E907B1CF9F7D85D2542913CBEC5'
-            ],
+            $data,
             $response->getRedirectData()
         );
     }
@@ -55,12 +58,16 @@ class GatewayTest extends PHPUnit_Framework_TestCase
 
         $parameters = [
             'data' => [
+                'AMT' => '6.00',
+                'CURR' => 978,
                 'VS' => '12345',
                 'RES' => 'OK',
                 'AC' => '123456',
-                'SIGN' => '7F51F02B2C4A1A8D32641D44E77DEE97'
+                'TID' => '12345678',
+                'TIMESTAMP' => '01011970112233',
             ]
         ];
+        $parameters['data']['HMAC'] = $gateway->getSignator()->sign($parameters['data'], ['AMT', 'CURR', 'VS', 'RES', 'AC', 'TID', 'TIMESTAMP']);
 
         $response = $gateway->completePurchase($parameters)->send();
 

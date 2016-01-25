@@ -9,7 +9,7 @@ class PurchaseRequest extends AbstractRequest
 {
     protected function getSignatureKeys()
     {
-        return ['MID', 'AMT', 'CURR', 'VS', 'RURL', 'IPC', 'NAME'];
+        return ['MID', 'AMT', 'CURR', 'VS', 'RURL', 'IPC', 'NAME', 'TIMESTAMP'];
     }
 
     public function getMerchantId()
@@ -55,15 +55,13 @@ class PurchaseRequest extends AbstractRequest
             'IPC' => $this->getClientIp(),
             'NAME' => $this->getCustomerId(),
             'TPAY' => 'N',
-            'AREDIR' => 1
+            'AREDIR' => 1,
+            'TIMESTAMP' => $this->getTimestamp()
         ];
-        if($this->getDescription()) {
-            $data['DESC'] = $this->getDescription();
-        }
         if($this->getLanguage()) {
             $data['LANG'] = Language::getValue($this->getLanguage());
         }
-        $data['SIGN'] = $this->getSignator()->sign($data, $this->getSignatureKeys());
+        $data['HMAC'] = $this->getSignator()->sign($data, $this->getSignatureKeys());
 
         return $data;
     }

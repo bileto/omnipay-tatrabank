@@ -9,6 +9,9 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     /** @var DataSignator */
     private $signator;
 
+    /** @var string */
+    private $timestamp;
+
     /**
      * @return array data keys used to generate signature
      */
@@ -30,6 +33,27 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->signator;
     }
 
+    /**
+     * @param string $value
+     */
+    public function setTimestamp($value)
+    {
+        $this->timestamp = $value;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getTimestamp()
+    {
+        return $this->timestamp;
+    }
+
+    /**
+     * @param string $class
+     * @param array $data
+     * @return \Omnipay\Tatrabank\Message\class
+     */
     protected function createResponse($class, $data)
     {
         $response = new $class($this, $data);

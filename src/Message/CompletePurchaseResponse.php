@@ -13,7 +13,7 @@ class CompletePurchaseResponse extends AbstractResponse
 
     protected function getSignatureKeys()
     {
-        return ['VS', 'RES', 'AC'];
+        return ['AMT', 'CURR', 'VS', 'RES', 'AC', 'TID', 'TIMESTAMP'];
     }
 
 }

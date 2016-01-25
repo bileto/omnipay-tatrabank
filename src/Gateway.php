@@ -17,6 +17,9 @@ class Gateway extends AbstractGateway
     /** @var DataSignator */
     private $signator;
 
+    /** @var \DateTimeZone */
+    private $timezone;
+
     /**
      * Get gateway display name
      */
@@ -31,6 +34,14 @@ class Gateway extends AbstractGateway
     public function setSignator(DataSignator $signator)
     {
         $this->signator = $signator;
+    }
+
+    /**
+     * @return DataSignator
+     */
+    public function getSignator()
+    {
+        return $this->signator;
     }
 
     public function getMerchantId()
@@ -64,7 +75,7 @@ class Gateway extends AbstractGateway
 
     public static function getEndpoint()
     {
-        return 'https://moja.tatrabanka.sk/cgi-bin/e-commerce/start/e-commerce.jsp';
+        return 'https://moja.tatrabanka.sk/cgi-bin/e-commerce/start/cardpay';
     }
 
     protected function createRequest($class, array $parameters)
@@ -73,8 +84,13 @@ class Gateway extends AbstractGateway
             throw new \Exception('Cannot create request, Signator is not set');
         }
 
+        if ($this->timezone === null) {
+            $this->timezone = new \DateTimeZone('UTC');
+        }
+
         $request = parent::createRequest($class, $parameters);
         $request->setSignator($this->signator);
+        $request->setTimestamp((new \DateTime(null, $this->timezone))->format('dmYHis'));
 
         return $request;
     }
