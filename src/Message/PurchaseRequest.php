@@ -56,7 +56,7 @@ class PurchaseRequest extends AbstractRequest
             'NAME' => $this->getCustomerId(),
             'TPAY' => 'N',
             'AREDIR' => 1,
-            'TIMESTAMP' => $this->getTimestamp()
+            'TIMESTAMP' => str_pad($this->getTimestamp(), 14, "0", STR_PAD_LEFT)
         ];
         if($this->getLanguage()) {
             $data['LANG'] = Language::getValue($this->getLanguage());
