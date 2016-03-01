@@ -38,7 +38,7 @@ class GatewayTest extends PHPUnit_Framework_TestCase
             'NAME' => '42',
             'TPAY' => 'N',
             'AREDIR' => 1,
-            'TIMESTAMP' => $request->getTimestamp(),
+            'TIMESTAMP' => str_pad($this->getTimestamp(), 14, "0", STR_PAD_LEFT),
             'LANG' => 'cz',
         ];
         $data['HMAC'] = $gateway->getSignator()->sign($data, ['MID', 'AMT', 'CURR', 'VS', 'RURL', 'IPC', 'NAME', 'TIMESTAMP']);
