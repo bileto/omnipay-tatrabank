@@ -38,7 +38,7 @@ class GatewayTest extends PHPUnit_Framework_TestCase
             'NAME' => '42',
             'TPAY' => 'N',
             'AREDIR' => 1,
-            'TIMESTAMP' => str_pad($this->getTimestamp(), 14, "0", STR_PAD_LEFT),
+            'TIMESTAMP' => str_pad($request->getTimestamp(), 14, "0", STR_PAD_LEFT),
             'LANG' => 'cz',
         ];
         $data['HMAC'] = $gateway->getSignator()->sign($data, ['MID', 'AMT', 'CURR', 'VS', 'RURL', 'IPC', 'NAME', 'TIMESTAMP']);
@@ -65,7 +65,6 @@ class GatewayTest extends PHPUnit_Framework_TestCase
                 'TIMESTAMP' => '01011970112233',
             ]
         ];
-        $parameters['data']['HMAC'] = $gateway->getSignator()->sign($parameters['data'], ['AMT', 'CURR', 'VS', 'RES', 'AC', 'TID', 'TIMESTAMP']);
 
         $response = $gateway->completePurchase($parameters)->send();
 

@@ -23,6 +23,7 @@ class CompletePurchaseRequest extends AbstractRequest
 
     public function sendData($data)
     {
+        $data['HMAC'] = $this->getSignator()->sign($data, ['AMT', 'CURR', 'VS', 'RES', 'AC', 'TID', 'TIMESTAMP']);
         return $this->createResponse(CompletePurchaseResponse::class, $data);
     }
 }
