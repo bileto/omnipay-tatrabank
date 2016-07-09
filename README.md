@@ -5,6 +5,9 @@
 [Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment
 processing library for PHP 5.3+. This package implements TatraBank Online Payment Gateway support for Omnipay.
 
+## Docs
+[CardPay (SK)](http://www.tatrabanka.sk/cardpay/CardPay_technicka_prirucka_HMAC.pdf)
+
 ## Installation
 
 Omnipay is installed via [Composer](http://getcomposer.org/). To install, simply add it
