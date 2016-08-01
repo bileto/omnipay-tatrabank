@@ -9,7 +9,7 @@ class PurchaseRequest extends AbstractRequest
 {
     protected function getSignatureKeys()
     {
-        return ['MID', 'AMT', 'CURR', 'VS', 'RURL', 'IPC', 'NAME', 'TIMESTAMP'];
+        return ['MID', 'AMT', 'CURR', 'VS', 'RURL', 'IPC', 'NAME', 'REM', 'TIMESTAMP'];
     }
 
     public function getMerchantId()
@@ -27,6 +27,11 @@ class PurchaseRequest extends AbstractRequest
         return $this->getParameter('language');
     }
 
+    public function getCustomerEmail()
+    {
+        return $this->getParameter('customerEmail');
+    }
+
     public function setMerchantId($value)
     {
         return $this->setParameter('merchantId', $value);
@@ -42,6 +47,11 @@ class PurchaseRequest extends AbstractRequest
         return $this->setParameter('language', $value);
     }
 
+    public function setCustomerEmail($value)
+    {
+        return $this->setParameter('customerEmail', $value);
+    }
+
     public function getData()
     {
         $this->validate('merchantId', 'customerId', 'transactionId', 'amount', 'currency', 'returnUrl', 'clientIp');
@@ -54,6 +64,7 @@ class PurchaseRequest extends AbstractRequest
             'RURL' => $this->getReturnUrl(),
             'IPC' => $this->getClientIp(),
             'NAME' => $this->getCustomerId(),
+            'REM' => $this->getCustomerEmail(),
             'TPAY' => 'N',
             'AREDIR' => 1,
             'TIMESTAMP' => str_pad($this->getTimestamp(), 14, "0", STR_PAD_LEFT)
