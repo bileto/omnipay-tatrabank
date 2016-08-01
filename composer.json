@@ -17,6 +17,10 @@
     {
       "name": "Petr Smrkovský",
       "email": "petr.smrkovsky@bileto.com"
+    },
+    {
+      "name": "Jan Machala",
+      "email": "jan.machala@bileto.com"
     }
   ],
   "autoload": {
