@@ -23,7 +23,7 @@
     "psr-4": { "Omnipay\\Tatrabank\\" : "src/" }
   },
   "require": {
-    "omnipay/common": "^2.3"
+    "omnipay/common": "~2.5"
   },
   "require-dev": {
     "omnipay/tests": "^2.0",
