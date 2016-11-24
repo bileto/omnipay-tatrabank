@@ -64,7 +64,7 @@ class GatewayTest extends PHPUnit_Framework_TestCase
                 'VS'        => '12345',
                 'RES'       => 'OK',
                 'AC'        => '123456',
-                'TID'       => '12345678',
+                'TID'       => '87654321',
                 'TIMESTAMP' => '01011970112233',
             ]
         ];
@@ -75,6 +75,7 @@ class GatewayTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf(Omnipay\Tatrabank\Message\AbstractResponse::class, $response);
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals('12345', $response->getTransactionId());
+        $this->assertEquals('87654321', $response->getTransactionReference());
         $this->assertEquals('123456', $response->getApprovalCode());
     }
 
