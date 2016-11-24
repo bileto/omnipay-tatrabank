@@ -3,9 +3,9 @@
 namespace Omnipay\Tatrabank;
 
 use Omnipay\Common\AbstractGateway;
-use Omnipay\Tatrabank\Sign\DataSignator;
-use Omnipay\Tatrabank\Message\PurchaseRequest;
 use Omnipay\Tatrabank\Message\CompletePurchaseRequest;
+use Omnipay\Tatrabank\Message\PurchaseRequest;
+use Omnipay\Tatrabank\Sign\DataSignator;
 
 /**
  * TatraBank payment gateway

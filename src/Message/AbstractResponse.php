@@ -2,7 +2,7 @@
 
 namespace Omnipay\Tatrabank\Message;
 
-use \Omnipay\Tatrabank\Sign\DataSignator;
+use Omnipay\Tatrabank\Sign\DataSignator;
 
 abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
 {
@@ -17,7 +17,7 @@ abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
      */
     abstract protected function getSignatureKeys();
 
-   /**
+    /**
      * @param DataSignator $signator
      */
     public function setSignator(DataSignator $signator)
@@ -30,6 +30,7 @@ abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
         if ($this->isVerified === null) {
             $this->isVerified = $this->verify();
         }
+
         return $this->isVerified;
     }
 
@@ -38,6 +39,7 @@ abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
         if (!$this->isVerified()) {
             return false;
         }
+
         return $this->getCode() === "OK";
     }
 

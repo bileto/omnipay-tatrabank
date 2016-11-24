@@ -24,6 +24,7 @@ class DataSignator
     public function sign(array $data, array $arrayKeys)
     {
         $strToSign = $this->preparer->getStringToSign($data, $arrayKeys);
+
         return $this->signator->sign($strToSign);
     }
 }

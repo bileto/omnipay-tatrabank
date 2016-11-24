@@ -16,7 +16,8 @@ class Signator
      * @param string $text
      * @return string
      */
-    public function sign($text) {
-		return hash_hmac("sha256", $text, pack('H*', $this->secureKey));
+    public function sign($text)
+    {
+        return hash_hmac("sha256", $text, pack('H*', $this->secureKey));
     }
 }
