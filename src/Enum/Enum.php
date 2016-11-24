@@ -2,6 +2,8 @@
 
 namespace Omnipay\Tatrabank\Enum;
 
+use UnexpectedValueException;
+
 /**
  * Enumeration
  *
@@ -14,27 +16,29 @@ abstract class Enum
     /**
      * @param mixed $name
      * @return mixed
-     * @throws \UnexpectedValueException
+     * @throws UnexpectedValueException
      */
     public static function getValue($name)
     {
-        if(!isset(static::$def[$name])) {
-            throw new \UnexpectedValueException('Name "' . $name . '" is not in enumeration');
+        if (!isset(static::$def[$name])) {
+            throw new UnexpectedValueException('Name "' . $name . '" is not in enumeration');
         }
+
         return static::$def[$name];
     }
 
     /**
      * @param mixed $value
      * @return mixed
-     * @throws \UnexpectedValueException
+     * @throws UnexpectedValueException
      */
     public static function getName($value)
     {
         $result = array_search($value, static::$def, true);
-        if($result === FALSE) {
-            throw new \UnexpectedValueException('Value "' . $value . '" is not in enumeration');
+        if ($result === false) {
+            throw new UnexpectedValueException('Value "' . $value . '" is not in enumeration');
         }
+
         return $result;
     }
 

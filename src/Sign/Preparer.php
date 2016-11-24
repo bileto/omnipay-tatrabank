@@ -24,9 +24,10 @@ class Preparer
             } elseif (is_array($value)) {
                 $str .= $this->getStringToSign($value, array_keys($value));
             } else {
-                $str .= (string) $data[$key];
+                $str .= (string)$data[$key];
             }
         }
+
         return $str;
     }
 }

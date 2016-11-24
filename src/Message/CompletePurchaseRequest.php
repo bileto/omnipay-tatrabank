@@ -9,6 +9,11 @@ class CompletePurchaseRequest extends AbstractRequest
         return [];
     }
 
+    public function getTransactionReference()
+    {
+        return $this->getParameter('TID');
+    }
+
     public function setData($value)
     {
         return $this->setParameter('data', $value);
@@ -24,6 +29,7 @@ class CompletePurchaseRequest extends AbstractRequest
     public function sendData($data)
     {
         $data['HMAC'] = $this->getSignator()->sign($data, ['AMT', 'CURR', 'VS', 'RES', 'AC', 'TID', 'TIMESTAMP']);
+
         return $this->createResponse(CompletePurchaseResponse::class, $data);
     }
 }

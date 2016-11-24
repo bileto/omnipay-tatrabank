@@ -13,11 +13,11 @@ class CompletePurchaseResponse extends AbstractResponse
 
     public function getTransactionReference()
     {
-        if (isset($this->data['VS'])) {
-            return $this->data['VS'];
+        if (isset($this->data['TID'])) {
+            return $this->data['TID'];
         }
+        return null;
     }
-
 
     protected function getSignatureKeys()
     {

@@ -2,8 +2,8 @@
 
 namespace Omnipay\Tatrabank\Message;
 
-use Omnipay\Tatrabank\Enum\Language;
 use Omnipay\Tatrabank\Enum\Currency;
+use Omnipay\Tatrabank\Enum\Language;
 
 class PurchaseRequest extends AbstractRequest
 {
@@ -47,18 +47,18 @@ class PurchaseRequest extends AbstractRequest
         $this->validate('merchantId', 'customerId', 'transactionId', 'amount', 'currency', 'returnUrl', 'clientIp');
 
         $data = [
-            'MID' => $this->getMerchantId(),
-            'AMT' => $this->getAmount(),
-            'CURR' => Currency::getValue($this->getCurrency()),
-            'VS' => $this->getTransactionId(),
-            'RURL' => $this->getReturnUrl(),
-            'IPC' => $this->getClientIp(),
-            'NAME' => $this->getCustomerId(),
-            'TPAY' => 'N',
-            'AREDIR' => 1,
+            'MID'       => $this->getMerchantId(),
+            'AMT'       => $this->getAmount(),
+            'CURR'      => Currency::getValue($this->getCurrency()),
+            'VS'        => $this->getTransactionId(),
+            'RURL'      => $this->getReturnUrl(),
+            'IPC'       => $this->getClientIp(),
+            'NAME'      => $this->getCustomerId(),
+            'TPAY'      => 'N',
+            'AREDIR'    => 1,
             'TIMESTAMP' => str_pad($this->getTimestamp(), 14, "0", STR_PAD_LEFT)
         ];
-        if($this->getLanguage()) {
+        if ($this->getLanguage()) {
             $data['LANG'] = Language::getValue($this->getLanguage());
         }
         $data['HMAC'] = $this->getSignator()->sign($data, $this->getSignatureKeys());
