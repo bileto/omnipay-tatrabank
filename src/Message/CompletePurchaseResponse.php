@@ -13,8 +13,8 @@ class CompletePurchaseResponse extends AbstractResponse
 
     public function getTransactionReference()
     {
-        if (isset($this->data['TID'])) {
-            return $this->data['TID'];
+        if (isset($this->data['TID']) && !empty($this->data['TID'])) {
+            return (string) $this->data['TID'];
         }
         return null;
     }

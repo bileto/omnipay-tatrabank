@@ -3,6 +3,7 @@
 namespace Omnipay\Tatrabank;
 
 use Omnipay\Common\AbstractGateway;
+use Omnipay\Tatrabank\Message\AbstractRequest;
 use Omnipay\Tatrabank\Message\CompletePurchaseRequest;
 use Omnipay\Tatrabank\Message\PurchaseRequest;
 use Omnipay\Tatrabank\Sign\DataSignator;
@@ -88,6 +89,7 @@ class Gateway extends AbstractGateway
             $this->timezone = new \DateTimeZone('UTC');
         }
 
+        /** @var AbstractRequest $request */
         $request = parent::createRequest($class, $parameters);
         $request->setSignator($this->signator);
         $request->setTimestamp((new \DateTime(null, $this->timezone))->format('dmYHis'));

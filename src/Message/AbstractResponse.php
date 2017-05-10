@@ -59,8 +59,8 @@ abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
 
     public function getTransactionId()
     {
-        if (isset($this->data['VS'])) {
-            return $this->data['VS'];
+        if (isset($this->data['VS']) && !empty($this->data['VS'])) {
+            return (string) $this->data['VS'];
         }
     }
 

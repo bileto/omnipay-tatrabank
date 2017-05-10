@@ -11,7 +11,11 @@ class CompletePurchaseRequest extends AbstractRequest
 
     public function getTransactionReference()
     {
-        return $this->getParameter('TID');
+        $parameter = $this->getParameter('TID');
+        if (!empty($parameter)) {
+            return $parameter;
+        }
+        return null;
     }
 
     public function setData($value)
